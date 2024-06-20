@@ -30,6 +30,7 @@ int main() {
     trie.insert("candles");
     trie.insert("apple");
     trie.insert("apples");
+    trie.insert("acorn");
 
     defs::Words w = trie.words();
     
@@ -37,5 +38,10 @@ int main() {
         std::cout << word << std::endl;
     }
 
+    std::cout << trie.is_pref("bell") << std::endl;
+    std::cout << trie.is_pref("app") << std::endl;
+    std::cout << trie.is_pref("c") << std::endl;
+    std::cout << trie.is_pref("d") << std::endl;
+    
     return 0;
 }

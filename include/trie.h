@@ -34,41 +34,49 @@ public:
         Node* children[26];
         bool is_end;
         defs::Limits limits;
+        unsigned int is_pref_of = 0;
 
-        void insert(const char* word, defs::Limits& limits) {
-            if (*word == '\0') {
+
+        bool insert(const char* word, defs::Limits& limits) {
+            if (*word == '\0' && !is_end) {
                 is_end = true;
                 this->limits = limits;
-                return;
+                return true;
+            } else if (*word == '\0') {
+                return false;
             }
             int idx = *word - 'a';
             if (children[idx] == nullptr) {
                 children[idx] = new Node();
             }
-            children[idx]->insert(word + 1, limits);
+            if (children[idx]->insert(word + 1, limits)) {
+                is_pref_of++;
+            }
         }
 
-        void insert(const char* word) {
-            if (*word == '\0') {
+        bool insert(const char* word) {
+            if (*word == '\0' && !is_end) {
                 is_end = true;
                 this->limits = defs::Limits();
-                return;
+                return true;
+            } else if (*word == '\0') {
+                return false;
             }
             int idx = *word - 'a';
             if (children[idx] == nullptr) {
                 children[idx] = new Node();
             }
-            children[idx]->insert(word + 1, limits);
+            if (children[idx]->insert(word + 1, limits)) {
+                is_pref_of++;
+            }
         }
 
-        int is_pref(const char* pref) const {
-
-            if (*pref == '\0') { return is_end ? 1 : 0; }
+        unsigned int is_pref(const char* pref) const {
+            if (*pref == '\0') { return is_pref_of; }
 
             int idx = *pref - 'a';
             if (children[idx] == nullptr) { return 0; }
-            
-            return is_end ? 1 : 0 + children[idx]->is_pref(pref + 1);
+            return children[idx]->is_pref(pref + 1);
         }
 
         void words(defs::Words& str, std::string& s) const {

@@ -20,8 +20,8 @@ void Trie::insert(const char* word) {
 }
 
 std::string Trie::is_pref(const char* pref) const {
-    int res = root->is_pref(pref);
-    return "bell is prefix of " + std::to_string(res) + " words";
+    unsigned int res = root->is_pref(pref);
+    return "'" + std::string(pref) + "' is prefix of " + std::to_string(res) + " words";
 }
 
 
