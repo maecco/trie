@@ -1,4 +1,3 @@
-#include <string>
 #include "../include/defs.h"
 #include "../include/trie.h"
 
@@ -21,7 +20,10 @@ void Trie::insert(const char* word) {
 
 std::string Trie::is_pref(const char* pref) const {
     unsigned int res = root->is_pref(pref);
-    return "'" + std::string(pref) + "' is prefix of " + std::to_string(res) + " words";
+    if (res == 0) {
+        return std::string(pref) + " is not a prefix";
+    }
+    return  std::string(pref) + " is prefix of " + std::to_string(res) + " words";
 }
 
 
