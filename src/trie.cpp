@@ -16,8 +16,8 @@ bool Trie::from_dict(const char* filename) {
     if ( !p.parseFrom(filename) ) { return false; }
 
     defs::wordMap map = p.getMap();
-    for (auto& [word, limits] : map) {
-        insert(word.c_str(), limits);
+    for (auto& pair : map) {
+        insert(pair.first.c_str(), pair.second);
     }
     return true;
 }

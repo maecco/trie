@@ -2,7 +2,7 @@
 CXX = g++
 
 # Compiler flags
-CXXFLAGS = -std=c++17 -Wall -Iinclude
+CXXFLAGS = -std=c++11 -Wall -Iinclude
 
 # Debug flags
 DEBUG_FLAGS = -g
