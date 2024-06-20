@@ -17,6 +17,8 @@ public:
     void insert(const char* word);
     
     std::string is_pref(const char* pref) const;
+    
+    std::string find(const char* word) const;
 
     defs::Words words() const;
 
@@ -44,6 +46,7 @@ public:
             if (*word == '\0' && !is_end) {
                 is_end = true;
                 this->limits = limits;
+                is_pref_of++;
                 return true;
             } else if (*word == '\0') {
                 return false;
@@ -61,6 +64,7 @@ public:
             if (*word == '\0' && !is_end) {
                 is_end = true;
                 this->limits = defs::Limits();
+                is_pref_of++;
                 return true;
             } else if (*word == '\0') {
                 return false;
@@ -82,6 +86,19 @@ public:
             return children[idx]->is_pref(pref + 1);
         }
 
+        defs::Limits find(const char* word) const {
+            if (*word == '\0' && is_end) {
+                return limits;
+            } else if (*word == '\0') {
+                return defs::Limits();
+            }
+            int idx = *word - 'a';
+            if (children[idx] == nullptr) {
+                return defs::Limits();
+            }
+            return children[idx]->find(word + 1);
+        }
+
         void words(defs::Words& str, std::string& s) const {
             for (int i = 0; i < 26; i++) {
                 if (children[i] != nullptr) {
@@ -96,7 +113,6 @@ public:
                 }
             }
         }
-
     };
 
     Node* root;
