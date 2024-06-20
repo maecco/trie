@@ -19,14 +19,6 @@ bool Parser::parseFrom(const char* path) {
     return true;
 }
 
-defs::Limits Parser::getWord(std::string& word) const {
-    auto it = _map.find(word);
-    if (it == _map.end()) {
-        return defs::Limits();
-    }
-    return it->second;
-}
-
 void Parser::_buildMap(std::ifstream& file) {
     std::string line;
     unsigned int start_offset = 0;

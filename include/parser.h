@@ -12,12 +12,9 @@ struct Parser {
     ~Parser();
     bool parseFrom(const char* path);
 
-    defs::Limits getWord(std::string& word) const;
+    defs::wordMap getMap() const { return _map; }
 
-
-// private:
-
+private:
     defs::wordMap _map;
-
     void _buildMap(std::ifstream& file);
 };

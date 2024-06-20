@@ -1,6 +1,5 @@
 #include <iostream>
 #include "trie.h"
-#include "parser.h"
 
 int main() {
     
@@ -44,12 +43,14 @@ int main() {
     // std::cout << trie.is_pref("c") << std::endl;
     // std::cout << trie.is_pref("d") << std::endl;
 
-    Parser p = Parser();
-    p.parseFrom("teste_dict.txt");
+    Trie trie;
+    trie.from_dict("teste_dict.txt");
 
-    for (auto& word : p._map) {
-        std::cout << word.first << " " << word.second.first << " " << word.second.second << std::endl;
-    }    
+    defs::Words w = trie.words();
+
+    for (auto& word : w) {
+        std::cout << word << std::endl;
+    }
 
     return 0;
 }

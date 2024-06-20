@@ -4,11 +4,14 @@
 #include <string>
 
 #include "defs.h"
+#include "parser.h"
 
 class Trie {
 public:
     Trie();
     ~Trie();
+
+    bool from_dict(const char* filename);
 
     void insert(const char* word, defs::Limits& limits);
     void insert(const char* word);

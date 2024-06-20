@@ -11,6 +11,17 @@ Trie::~Trie() {
     delete root;
 }
 
+bool Trie::from_dict(const char* filename) {
+    Parser p = Parser();
+    if ( !p.parseFrom(filename) ) { return false; }
+
+    defs::wordMap map = p.getMap();
+    for (auto& [word, limits] : map) {
+        insert(word.c_str(), limits);
+    }
+    return true;
+}
+
 void Trie::insert(const char* word, defs::Limits& limits) {
     root->insert(word, limits);
 }
